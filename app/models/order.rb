@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   scope :pending, -> { where(state: 0) }
   scope :progress, -> { where(state: 1) }
   scope :complete, -> { where(state: 2) }
+  scope :control, ->(number) { where(control_number: number) }
 
   protected
 
