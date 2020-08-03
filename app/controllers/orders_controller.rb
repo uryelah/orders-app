@@ -2,7 +2,12 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = Order.all
+    @js = "orderIndex.js"
+    if params['order_control']
+      @orders = Order.control_number(params['order_control'])
+    else
+      @orders = Order.list(params['filter_param'])
+    end
   end
 
   def show

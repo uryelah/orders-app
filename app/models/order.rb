@@ -11,6 +11,32 @@ class Order < ApplicationRecord
   scope :complete, -> { where(state: 2) }
   scope :control, ->(number) { where(control_number: number) }
 
+  def self.list(param)
+    return Order.all if param.nil?
+
+    if param.to_i.zero?
+      order_list = Order.pending
+    elsif param.to_i == 1
+      order_list = Order.progress
+    elsif param.to_i == 2
+      order_list = Order.complete
+    end
+
+    order_list
+  end
+
+  def self.control_number(param)
+    Order.control(param.to_i)
+  end
+
+  def increment_state
+    return if state == 2
+
+    incremented_state = state + 1
+
+    update_columns(state: incremented_state)
+  end
+
   protected
 
   def set_initial_state
@@ -27,15 +53,5 @@ class Order < ApplicationRecord
     return unless found_match.length.positive? && found_match[0].id != id
 
     errors.add(:control_number, 'Control_number should be unique')
-  end
-
-  public
-
-  def increment_state
-    return if state == 2
-
-    incremented_state = state + 1
-
-    update_columns(state: incremented_state)
   end
 end
