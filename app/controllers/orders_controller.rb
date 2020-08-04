@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @js = "orderIndex.js"
     if params['order_control']
       @orders = Order.control_number(params['order_control'])
     else
@@ -25,8 +24,8 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
+        format.html { redirect_to :orders, notice: 'Order was successfully created.' }
+        format.json { render :index, status: :created, location: @order }
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -35,13 +34,15 @@ class OrdersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
+    @order = Order.find(params[:id])
+
+    if @order
+      if @order.increment_state
+        flash[:notice] = "Order state updated!"
+        redirect_to :orders
       else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        flash[:error] = "Order state could not be updated"
+        redirect_to :orders
       end
     end
   end

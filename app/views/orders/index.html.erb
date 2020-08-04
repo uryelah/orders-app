@@ -27,10 +27,8 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.control_number %></td>
-        <td><%= order.state %></td>
+        <td><%= order.state %> <%= link_to 'Update state',  update_order_path(order.id), method: :PUT%></td>
         <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

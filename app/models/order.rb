@@ -30,7 +30,7 @@ class Order < ApplicationRecord
   end
 
   def increment_state
-    return if state == 2
+    return false if state == 2
 
     incremented_state = state + 1
 
