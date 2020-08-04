@@ -1,39 +1,76 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Orders</h1>
-
-<%= link_to 'All orders', orders_path %>
-<%= link_to 'Orders Pending ', filter_orders_path(filter_param: '0') %>
-<%= link_to 'Orders in Progress', filter_orders_path(filter_param: '1') %>
-<%= link_to 'Complete orders', filter_orders_path(filter_param: '2') %>
-
-<div>
-  <%= number_field(:order_control, nil, step: 1, id: 'order_number') %>
-  <button id="controlFilterBtn">
-  Control number
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm p-3 mb-5 bg-white">
+  <%= link_to  orders_path, class: "navbar-brand rounded-circle bg-custom d-block position-relative d-flex" do %>
+    <i class="fas fa-cubes text-primary"></i>
+  <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
-</div>
+  <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <%= link_to 'All orders', orders_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Orders Pending ', filter_orders_path(filter_param: '0'), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Orders in Progress', filter_orders_path(filter_param: '1'), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Complete orders', filter_orders_path(filter_param: '2'), class: "nav-link" %>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <%= number_field :order_control, nil, step: 1, id: 'order_number', class: "form-control mr-sm-2" %>
+      <button id="controlFilterBtn", class="btn btn-outline-primary my-2 my-sm-0">
+        Control number
+      </button>
+    </form>
+  </div>
+</nav>
+<p id="notice"><%= notice %></p>
+<h1>aaa</h1>
 
-<table>
+<div class="container">
+  <div class="row mt-5 mb-4">
+    <div class="d-flex justify-content-end col-12">
+      <%= link_to 'New Order', new_order_path, class: "btn btn-primary btn-lg border border-light text-white" %>
+    </div>
+  </div>
+<table class="table">
   <thead>
     <tr>
-      <th>Control number</th>
-      <th>State</th>
-      <th colspan="3"></th>
+      <th scope="col">#</th>
+      <th scope="col">Control number</th>
+      <th scope="col">State</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
-
   <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.control_number %></td>
-        <td><%= %w[Pending Progress Complete][order.state] %> <%= link_to 'Update state',  update_order_path(order.id), method: :PUT%></td>
-        <td><%= link_to 'Show', order %></td>
+      <% @orders.each do |order| %>
+      <tr class="rounded">
+        <th scope="row">
+          <div class="table-child table-child--left bg-white rounded-left"><%= order.id %></div>
+        </th>
+        <td> 
+          <div class="table-child bg-white"><%= link_to order.control_number, order, class: "d-flex justify-content-center" %></div>
+        </td>
+        <td>
+          <div class="table-child bg-white">
+            <%= link_to '#', class: "btn-state btn btn-sm btn-outline-#{%w[warning info success][order.state]}" do %>
+              <%= %w[Pending Progress Complete][order.state] %>
+            <% end %>
+          </div>
+        </td>
+        <td>
+          <%= link_to update_order_path(order.id), method: :PUT do%>
+            <span class="table-child table-child--right bg-white rounded-right">
+              Update state
+            </span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+</div>

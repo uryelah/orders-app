@@ -34,7 +34,6 @@ RSpec.describe 'Order creation', type: :request do
   end
 end
 
-
 RSpec.describe 'Order state updating', type: :request do
   Order.all.destroy_all
 

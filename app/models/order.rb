@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Order model class
 class Order < ApplicationRecord
   validates :state, presence: true, numericality: { only_integer: true }
   validates :control_number, allow_blank: true, numericality: { only_integer: true }, uniqueness: true
