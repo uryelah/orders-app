@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Order < ApplicationRecord
   validates :state, presence: true, numericality: { only_integer: true }
   validates :control_number, allow_blank: true, numericality: { only_integer: true }, uniqueness: true
@@ -44,7 +46,7 @@ class Order < ApplicationRecord
   end
 
   def set_control_number
-    update_attributes!(control_number: id) if control_number.nil? || control_number.zero?
+    update!(control_number: id) if control_number.nil? || control_number.zero?
   end
 
   def ensure_unique_control_number

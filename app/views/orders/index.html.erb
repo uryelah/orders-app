@@ -3,8 +3,8 @@
 <h1>Orders</h1>
 
 <%= link_to 'All orders', orders_path %>
-<%= link_to 'Pending orders', filter_orders_path(filter_param: '0') %>
-<%= link_to 'Orders in progress', filter_orders_path(filter_param: '1') %>
+<%= link_to 'Orders Pending ', filter_orders_path(filter_param: '0') %>
+<%= link_to 'Orders in Progress', filter_orders_path(filter_param: '1') %>
 <%= link_to 'Complete orders', filter_orders_path(filter_param: '2') %>
 
 <div>
@@ -27,7 +27,7 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.control_number %></td>
-        <td><%= order.state %> <%= link_to 'Update state',  update_order_path(order.id), method: :PUT%></td>
+        <td><%= %w[Pending Progress Complete][order.state] %> <%= link_to 'Update state',  update_order_path(order.id), method: :PUT%></td>
         <td><%= link_to 'Show', order %></td>
       </tr>
     <% end %>

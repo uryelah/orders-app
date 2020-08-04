@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :orders, except: [:destroy]
+  resources :orders, except: %i[destroy edit show]
 
   put 'orders/:id', to: 'orders#update', as: :update_order
 

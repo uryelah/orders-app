@@ -1,22 +1,18 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: %i[show edit update destroy]
 
   def index
-    if params['order_control']
-      @orders = Order.control_number(params['order_control'])
-    else
-      @orders = Order.list(params['filter_param'])
-    end
-  end
-
-  def show
+    @orders = if params['order_control']
+                Order.control_number(params['order_control'])
+              else
+                Order.list(params['filter_param'])
+              end
   end
 
   def new
     @order = Order.new
-  end
-
-  def edit
   end
 
   def create
@@ -38,23 +34,24 @@ class OrdersController < ApplicationController
 
     if @order
       if @order.increment_state
-        flash[:notice] = "Order state updated!"
+        flash[:notice] = 'Order state updated!'
         redirect_to :orders
       else
-        flash[:error] = "Order state could not be updated"
+        flash[:error] = 'Order state could not be updated'
         redirect_to :orders
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:control_number, :status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params.require(:order).permit(:control_number, :status)
+  end
 end
