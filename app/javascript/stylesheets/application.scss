@@ -6,6 +6,38 @@ $black: #19191f;
 $bg-default: #f6f7f8;
 $bg-dark: #dde0e5;
 
+body {
+  background-color: $bg-default;
+  color: $black;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2 {
+  font-weight: bold;
+}
+
+p {
+  font-size: 16px;
+  color: $white;
+}
+
+a:visited {
+  color: $black;
+}
+
+img,
+video,
+audio {
+  margin-top: 20px;
+  max-width: 80%;
+}
+
+caption {
+  float: left;
+  clear: both;
+}
+
 .navbar {
   margin-bottom: 0;
 }
@@ -103,24 +135,18 @@ $bg-dark: #dde0e5;
   max-width: 600px;
 }
 
-body {
-  background-color: $bg-default;
-  color: $black;
-  font-family: 'Roboto', sans-serif;
+.flash {
+  z-index: 10000;
+  animation: fade 0.5s ease-in-out 5s forwards 1;
 }
 
-h1,
-h2 {
-  font-weight: bold;
-}
-
-p {
-  font-size: 16px;
-  color: $white;
-}
-
-a:visited {
-  color: $black;
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .jumbotron {
@@ -146,16 +172,4 @@ a:visited {
 .btn-sm {
   background-color: $white;
   display: inline-block;
-}
-
-img,
-video,
-audio {
-  margin-top: 20px;
-  max-width: 80%;
-}
-
-caption {
-  float: left;
-  clear: both;
 }

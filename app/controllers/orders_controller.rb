@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
       flash[:success] = 'Order was successfully created.'
       redirect_to :orders
     else
-      flash[:error] = 'Order could not be created'
+      flash[:danger] = "Order could not be created. #{stringfy_errors(@order)}"
       render :new
     end
   end
@@ -34,10 +34,10 @@ class OrdersController < ApplicationController
     return unless order
 
     if @order.increment_state
-      flash[:notice] = 'Order state updated!'
+      flash[:success] = 'Order state updated!'
       redirect_back(fallback_location: root_path)
     else
-      flash[:error] = 'Order state could not be updated'
+      flash[:danger] = 'Order state could not be updated'
       redirect_to :orders
     end
   end
@@ -50,5 +50,14 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:control_number, :status)
+  end
+
+  def stringfy_errors(order)
+    str = ["#{order.errors.count > 1 ? 'Errors' : 'Error'}:"]
+    order.errors.full_messages.each_with_index do |message, i|
+      str += ["#{i.zero? ? '' : ','} #{message}"]
+    end
+
+    str.join(' ')
   end
 end
