@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
 
-    return unless order
+    return unless @order
 
     if @order.increment_state
       flash[:success] = 'Order state updated!'
