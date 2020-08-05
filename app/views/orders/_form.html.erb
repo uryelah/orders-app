@@ -2,7 +2,6 @@
   <% if order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
-
       <ul>
         <% order.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,12 +10,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :control_number %>
-    <%= form.number_field :control_number %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="field container">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between pt-3 pb-3">
+        <%= form.label :control_number, 'Control number:' %>
+        <%= form.number_field :control_number, class: "rounded border pl-2 pr-2"  %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="actions col-12">
+        <%= form.submit nil,  class: "btn btn-primary btn border-primary text-white shadow-sm w-space-nw d-flex align-items-center" %>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -99,6 +99,10 @@ $bg-dark: #dde0e5;
   }
 }
 
+.form-row-md {
+  max-width: 600px;
+}
+
 body {
   background-color: $bg-default;
   color: $black;
