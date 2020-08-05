@@ -5,7 +5,7 @@ window.onload = () => {
 
     if (controlFilterBtn && controlInput) {
       controlFilterBtn.addEventListener('click', () => {
-        window.location = `http://localhost:3000/orders/controll/${controlInput.value}`
+        window.location = `${window.locaiton.host}/orders/controll/${controlInput.value}`
       });
     }
   }
