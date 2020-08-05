@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Control number</th>
+      <th scope="col">State</th>
+      <th scope="col">Next state</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'order', collection: @orders %>
+  </tbody>
+</table>
