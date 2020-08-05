@@ -46,40 +46,40 @@ RSpec.describe 'Order state updating', type: :request do
   it 'updates an order from Pending to Progressa and redirects to index' do
     make_orders
     get '/orders'
-    expect(response.body.scan('Progress').size).to eq(1)
+    expect(response.body.scan('btn-outline-info').size).to eq(0)
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
-    expect(response).to redirect_to(:orders)
+    expect(response).to redirect_to(:root)
     follow_redirect!
     expect(response).to render_template(:index)
-    expect(response.body.scan('Progress').size).to eq(2)
+    expect(response.body.scan('btn-outline-info').size).to eq(1)
   end
 
   it 'updates an order from Progressa to Complete and redirects to index' do
     make_orders
     get '/orders'
-    expect(response.body.scan('Complete').size).to eq(1)
+    expect(response.body.scan('btn-outline-success').size).to eq(0)
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
-    expect(response).to redirect_to(:orders)
+    expect(response).to redirect_to(:root)
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
-    expect(response).to redirect_to(:orders)
+    expect(response).to redirect_to(:root)
     follow_redirect!
     expect(response).to render_template(:index)
-    expect(response.body.scan('Complete').size).to eq(2)
+    expect(response.body.scan('btn-outline-success').size).to eq(1)
   end
 
   it ' does not update an order from Complete to another state' do
     make_orders
     get '/orders'
-    expect(response.body.scan('Complete').size).to eq(1)
+    expect(response.body.scan('btn-outline-success').size).to eq(0)
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
-    expect(response).to redirect_to(:orders)
+    expect(response).to redirect_to(:root)
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
-    expect(response).to redirect_to(:orders)
+    expect(response).to redirect_to(:root)
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
     expect(response).to redirect_to(:orders)
     follow_redirect!
     expect(response).to render_template(:index)
-    expect(response.body.scan('Complete').size).to eq(2)
+    expect(response.body.scan('btn-outline-success').size).to eq(1)
   end
 end
 
@@ -96,16 +96,16 @@ RSpec.describe 'Order filtering', type: :request do
     make_orders
     get '/orders'
     expect(response).to render_template(:index)
-    expect(response.body.scan('Show').size).to eq(3)
+    expect(response.body.scan('Advance state').size).to eq(3)
   end
 
   it 'show all pending state Orders' do
     make_orders
     get '/orders/filter/0'
-    expect(response.body.scan('Show').size).to eq(3)
-    expect(response.body.scan('Pending').size).to eq(4)
-    expect(response.body.scan('Progress').size).to eq(1)
-    expect(response.body.scan('Complete').size).to eq(1)
+    expect(response.body.scan('Advance state').size).to eq(3)
+    expect(response.body.scan('btn-outline-warning').size).to eq(3)
+    expect(response.body.scan('btn-outline-info').size).to eq(0)
+    expect(response.body.scan('btn-outline-success').size).to eq(0)
   end
 
   it 'show all Progress state Orders' do
@@ -113,10 +113,10 @@ RSpec.describe 'Order filtering', type: :request do
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
     put "/orders/#{Order.last.id}", params: { id: Order.last.id }
     get '/orders/filter/1'
-    expect(response.body.scan('Show').size).to eq(2)
-    expect(response.body.scan('Pending').size).to eq(1)
-    expect(response.body.scan('Progress').size).to eq(3)
-    expect(response.body.scan('Complete').size).to eq(1)
+    expect(response.body.scan('Advance state').size).to eq(2)
+    expect(response.body.scan('btn-outline-warning').size).to eq(0)
+    expect(response.body.scan('btn-outline-info').size).to eq(2)
+    expect(response.body.scan('btn-outline-success').size).to eq(0)
   end
 
   it 'show all Progress state Orders' do
@@ -124,15 +124,15 @@ RSpec.describe 'Order filtering', type: :request do
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
     put "/orders/#{Order.first.id}", params: { id: Order.first.id }
     get '/orders/filter/2'
-    expect(response.body.scan('Show').size).to eq(1)
-    expect(response.body.scan('Pending').size).to eq(1)
-    expect(response.body.scan('Progress').size).to eq(1)
-    expect(response.body.scan('Complete').size).to eq(2)
+    expect(response.body.scan('Advance state').size).to eq(1)
+    expect(response.body.scan('btn-outline-warning').size).to eq(0)
+    expect(response.body.scan('btn-outline-info').size).to eq(0)
+    expect(response.body.scan('btn-outline-success').size).to eq(1)
   end
 
   it 'show orders by control number' do
     make_orders
     get '/orders/controll/33'
-    expect(response.body.scan('Show').size).to eq(1)
+    expect(response.body.scan('Advance state').size).to eq(1)
   end
 end
