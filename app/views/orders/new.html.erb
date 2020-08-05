@@ -1,0 +1,18 @@
+<div class="form-row-md container p-5 mt-3">
+  <div class="row border-bottom mb-3 pb-3">
+    <h1 class="col-12 h3 font-weight-bold">New Order</h1>
+  </div>
+  <div class="row">
+    <div class="col-12 bg-white rounded border border-light p-3">
+      <%= render 'form', order: @order %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 pt-3">
+      <%= link_to orders_path, class: "text-primary" do %>
+        <i class="fas fa-arrow-left mr-2"></i>
+        <span>Back</span>
+      <% end %>
+    </div>
+  </div>
+</div>

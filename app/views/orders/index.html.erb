@@ -1,0 +1,13 @@
+<%= render 'nav' %>
+
+<p id="notice"><%= notice %></p>
+
+<div class="mt-5 container">
+  <div class="row mt-2 mb-4">
+    <div class="title-row d-flex align-items-center justify-content-between col-12">
+      <h1 class="h3 font-weight-bold ml-1">Orders list</h1>
+      <%= render 'new_btn' %>
+    </div>
+  </div>
+  <%= render 'table', orders: @orders %>
+</div>

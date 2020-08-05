@@ -1,0 +1,15 @@
+<%= form_with(model: order, local: true) do |form| %>
+  <div class="field container">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between pt-3 pb-3">
+        <%= form.label :control_number, 'Control number:' %>
+        <%= form.number_field :control_number, class: "rounded border pl-2 pr-2"  %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="actions col-12">
+        <%= form.submit nil,  class: "btn btn-primary btn border-primary text-white shadow-sm w-space-nw d-flex align-items-center" %>
+      </div>
+    </div>
+  </div>
+<% end %>

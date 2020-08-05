@@ -1,0 +1,29 @@
+<tr class="rounded">
+  <th scope="row">
+    <div class="table-child table-child--left bg-white rounded-left"><%= order.id %></div>
+  </th>
+  <td> 
+    <div class="table-child bg-white">
+      <%= link_to order.control_number, order_control_path(order.control_number), class: "d-flex justify-content-center text-primary" %>
+    </div>
+  </td>
+  <td>
+    <div class="table-child bg-white">
+      <%= link_to filter_orders_path(filter_param: order.state), class: "btn-state btn btn-sm btn-outline-#{number_to_class(order.state)}" do %>
+        <%= number_to_state(order.state) %>
+      <% end %>
+    </div>
+  </td>
+  <td>
+    <div class="table-child bg-white">
+      <%= order.state < 2 ? number_to_state(order.state + 1) : '--'%>
+    </div>
+  </td>
+  <td>
+    <div class="table-child table-child--right bg-white rounded-right">
+      <%= link_to update_order_path(order.id), method: :PUT, class: "btn btn-info rounded text-white w-space-nw #{btn_disabled(order.state)}" do%>
+        Advance state
+      <% end %>
+    </div>
+  </td>
+</tr>
