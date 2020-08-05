@@ -2,13 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
 $white: white;
-$black: black;
+$black: #19191f;
 $bg-default: #f6f7f8;
 $bg-dark: #dde0e5;
 
 .navbar {
   margin-bottom: 0;
-  background: $black;
 }
 
 .navbar {
@@ -26,6 +25,30 @@ $bg-dark: #dde0e5;
   }
 }
 
+.d-shrink-1 {
+  flex-shrink: 1;
+}
+
+.w-space-nw {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.min-50 {
+  flex-shrink: 1;
+  min-width: 50%;
+}
+
+.max-40 {
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.w-50 {
+  width: 50% !important;
+}
+
 .bg-custom {
   background-color: $bg-default;
 } 
@@ -33,9 +56,7 @@ $bg-dark: #dde0e5;
 .table {
   thead th {
     padding: 16px !important;
-    tr {
-      text-align: center;
-    }
+    text-align: center;
   }
   th, td {
     padding: 0 !important;
@@ -51,6 +72,7 @@ $bg-dark: #dde0e5;
   align-items: center;
   border-top: 1px solid $bg-dark;
   border-bottom: 1px solid $bg-dark;
+  color: $black !important;
   display: inline-flex;
   justify-content: center;
   margin-bottom: 10px;
@@ -68,6 +90,13 @@ $bg-dark: #dde0e5;
 
 .btn-state {
   min-width: 86px;
+}
+
+.title-row {
+  margin-top: 80px;
+  h1 {
+    color: $black;
+  }
 }
 
 body {

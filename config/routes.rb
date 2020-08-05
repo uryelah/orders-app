@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get 'orders/filter/:filter_param', to: 'orders#index', as: 'filter_orders'
 
   get 'orders/controll/:order_control', to: 'orders#index', as: 'order_control'
+
+  root to: 'orders#index'
 end

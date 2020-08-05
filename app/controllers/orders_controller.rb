@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     if @order
       if @order.increment_state
         flash[:notice] = 'Order state updated!'
-        redirect_to :orders
+        redirect_back(fallback_location: root_path)
       else
         flash[:error] = 'Order state could not be updated'
         redirect_to :orders
